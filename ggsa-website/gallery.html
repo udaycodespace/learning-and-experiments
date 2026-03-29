@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GGSA // VISUAL_DB</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <nav class="nav-container">
+        <div class="nav-logo">
+            <span class="status-dot"></span>
+            <a href="index.html">GGSA // GPREC</a>
+        </div>
+        <div class="nav-links">
+            <a href="events.html" class="nav-item">EVENTS [03]</a>
+            <a href="winners.html" class="nav-item">WINNERS</a>
+            <a href="members.html" class="nav-item">ROSTER</a>
+            <a href="blogs.html" class="nav-item">LOGS</a>
+            <a href="gallery.html" class="nav-item active-link">GALLERY</a>
+            <a href="manual.html" class="nav-item">MANUAL</a>
+        </div>
+        <div class="nav-action">
+            <a href="https://forms.google.com" target="_blank" class="btn-primary">JOIN_SYSTEM</a>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        
+        <header class="page-header">
+            <h1 class="glitch-text" data-text="VISUAL_DB">VISUAL_DB</h1>
+            <p class="mono-badge">/// ARTIFACTS_&_EVENT_LOGS</p>
+        </header>
+
+        <div class="folder-container" id="nexus-folder">
+            
+            <div class="folder-header" onclick="toggleNexusFolder()">
+                <div class="header-left">
+                    <span class="folder-icon">📁</span>
+                    <h2 class="folder-title">>> PROJECT: NEXUS_2025</h2>
+                </div>
+                <div class="header-right">
+                    <span class="folder-status" id="folder-status-text">[CLICK_TO_DECRYPT]</span>
+                    <span class="toggle-arrow" id="folder-arrow">▼</span>
+                </div>
+            </div>
+
+            <div class="folder-content" id="nexus-content" style="display: none;">
+                
+                <div class="gallery-grid">
+                    
+                    <div class="gallery-item">
+                        <div class="img-wrapper">
+                            <img src="assets/NEXUS_CHAMPIONS_SQD.jpg" alt="Team Winners" class="gallery-img">
+                            <div class="scan-line"></div>
+                        </div>
+                        <div class="img-meta">
+                            <div class="meta-row"><span>FILE: NEXUS_CHAMPIONS_SQD.raw</span><span>14MB</span></div>
+                            <div class="meta-desc">TEAM_WINNERS_PODIUM</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="img-wrapper">
+                            <img src="assets/RUNNER_UP_UNIT.jpg" alt="Team Runners" class="gallery-img">
+                            <div class="scan-line"></div>
+                        </div>
+                        <div class="img-meta">
+                            <div class="meta-row"><span>FILE: RUNNER_UP_UNIT.raw</span><span>12MB</span></div>
+                            <div class="meta-desc">TEAM_RUNNERS_UP</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="img-wrapper">
+                            <img src="assets/TOP_SCORER_01.jpg" alt="Solo Winner" class="gallery-img">
+                            <div class="scan-line"></div>
+                        </div>
+                        <div class="img-meta">
+                            <div class="meta-row"><span>FILE: TOP_SCORER_01.raw</span><span>8MB</span></div>
+                            <div class="meta-desc">INDIVIDUAL_EXCELLENCE</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="img-wrapper">
+                            <img src="assets/TOP_SCORER_02.jpg" alt="Solo Winner" class="gallery-img">
+                            <div class="scan-line"></div>
+                        </div>
+                        <div class="img-meta">
+                            <div class="meta-row"><span>FILE: TOP_SCORER_02.raw</span><span>9MB</span></div>
+                            <div class="meta-desc">INDIVIDUAL_EXCELLENCE</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="img-wrapper">
+                            <img src="assets/AUDITORIUM_WIDE.jpg" alt="Event Environment" class="gallery-img">
+                            <div class="scan-line"></div>
+                        </div>
+                        <div class="img-meta">
+                            <div class="meta-row"><span>FILE: AUDITORIUM_WIDE.raw</span><span>22MB</span></div>
+                            <div class="meta-desc">EVENT_ENVIRONMENT</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="img-wrapper">
+                            <img src="assets/OFFICIAL_MANIFESTO.jpg" alt="Event Poster" class="gallery-img" style="object-fit: contain; background: #111;">
+                            <div class="scan-line"></div>
+                        </div>
+                        <div class="img-meta">
+                            <div class="meta-row"><span>FILE: OFFICIAL_MANIFESTO.raw</span><span>5MB</span></div>
+                            <div class="meta-desc">EVENT_POSTER</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mission-receipt">
+                    <div class="receipt-header">
+                        <span>/// MISSION_REPORT_LOG</span>
+                        <span>STATUS: SUCCESS</span>
+                    </div>
+                    <div class="receipt-body">
+                        <p class="dedication-text">
+                            "SYSTEM_ACKNOWLEDGE:<br><br>
+                            Execution of Protocol NEXUS_2025 completed successfully.
+                            <br><br>
+                            Priority gratitude directed to <span class="highlight">Dr. Vishnu Vardhan Sir</span>, GPREC Faculties, and all executing nodes (participants) for deploying excellence."
+                        </p>
+                    </div>
+                    <div class="receipt-footer">
+                        <span class="barcode">||| || ||| || |||</span>
+                        <span class="hash-id">LOG_ID: #NEXUS_25_SUCCESS</span>
+                    </div>
+                </div>
+
+            </div> </div>
+
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <h4>UDAY-WORKS © 2026</h4>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        function toggleNexusFolder() {
+            var content = document.getElementById('nexus-content');
+            var arrow = document.getElementById('folder-arrow');
+            var status = document.getElementById('folder-status-text');
+            var folder = document.getElementById('nexus-folder');
+
+            if (content.style.display === "none") {
+                // OPEN IT
+                content.style.display = "block";
+                arrow.style.transform = "rotate(180deg)";
+                status.innerHTML = "[ACCESS_GRANTED]";
+                status.style.color = "#ccff00"; // Acid Lime
+                folder.style.borderColor = "#ccff00";
+            } else {
+                // CLOSE IT
+                content.style.display = "none";
+                arrow.style.transform = "rotate(0deg)";
+                status.innerHTML = "[CLICK_TO_DECRYPT]";
+                status.style.color = "#888";
+                folder.style.borderColor = "#333";
+            }
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Showcase - Professional Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --ivory: #fffff0;
+        --slate: #1a1d29;
+        --sage: #6b7f6e;
+        --bronze: #b8860b;
+        --mist: #e8ebe8;
+        --shadow-soft: rgba(26, 29, 41, 0.06);
+        --shadow-deep: rgba(26, 29, 41, 0.15);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Work Sans', sans-serif;
+        background: linear-gradient(135deg, var(--ivory) 0%, var(--mist) 100%);
+        color: var(--slate);
+        line-height: 1.7;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* Elegant paper texture */
+    body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%236b7f6e' fill-opacity='0.015'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'/%3E%3C/g%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .main-content {
+        position: relative;
+        z-index: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 70px 40px 100px;
+        transition: filter 0.4s ease, transform 0.4s ease;
+    }
+
+    .main-content.blurred {
+        filter: blur(8px);
+        transform: scale(0.98);
+        pointer-events: none;
+    }
+
+    /* Refined header */
+    header {
+        text-align: center;
+        margin-bottom: 80px;
+        opacity: 0;
+        animation: gentleFadeIn 1.2s ease 0.3s forwards;
+    }
+
+    @keyframes gentleFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    header h1 {
+        font-family: 'Crimson Pro', serif;
+        font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+        font-weight: 700;
+        color: var(--slate);
+        margin-bottom: 20px;
+        letter-spacing: -0.5px;
+        line-height: 1.1;
+    }
+
+    header .subtitle {
+        font-size: 1.05rem;
+        color: var(--sage);
+        font-weight: 300;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 25px;
+    }
+
+    .accent-line {
+        width: 60px;
+        height: 2px;
+        background: var(--bronze);
+        margin: 0 auto;
+    }
+
+    /* Resume cards */
+    .resume-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 35px;
+        margin-top: 70px;
+    }
+
+    .resume-card {
+        background: var(--ivory);
+        border: 1px solid rgba(107, 127, 110, 0.12);
+        padding: 45px 35px;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+        box-shadow: 0 4px 24px var(--shadow-soft);
+        opacity: 0;
+        animation: gentleFadeIn 0.9s ease forwards;
+    }
+
+    .resume-card:nth-child(1) { animation-delay: 0.5s; }
+    .resume-card:nth-child(2) { animation-delay: 0.65s; }
+    .resume-card:nth-child(3) { animation-delay: 0.8s; }
+
+    .resume-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 0;
+        background: var(--card-accent);
+        transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .resume-card:hover::before {
+        height: 100%;
+    }
+
+    .resume-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 48px var(--shadow-deep);
+        border-color: var(--card-accent);
+    }
+
+    .resume-card[data-accent="ai"] { --card-accent: #4a5f7a; }
+    .resume-card[data-accent="analytics"] { --card-accent: #7d8f69; }
+    .resume-card[data-accent="science"] { --card-accent: #a07855; }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 24px;
+    }
+
+    .card-number {
+        font-family: 'Crimson Pro', serif;
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: var(--card-accent);
+        opacity: 0.3;
+        line-height: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    .resume-card:hover .card-number {
+        opacity: 0.6;
+    }
+
+    .card-title {
+        font-family: 'Crimson Pro', serif;
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: var(--slate);
+        margin-bottom: 8px;
+        transition: color 0.3s ease;
+    }
+
+    .resume-card:hover .card-title {
+        color: var(--card-accent);
+    }
+
+    .card-description {
+        font-size: 0.95rem;
+        color: var(--sage);
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        line-height: 1.6;
+    }
+
+    .card-meta {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(107, 127, 110, 0.1);
+        font-size: 0.85rem;
+        color: var(--warm-gray);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .view-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--card-accent);
+        font-weight: 600;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .resume-card:hover .view-label {
+        opacity: 1;
+    }
+
+    /* Premium fullscreen viewer */
+    .fullscreen-viewer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(26, 29, 41, 0.96);
+        backdrop-filter: blur(12px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .fullscreen-viewer.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .viewer-container {
+        width: 92%;
+        height: 92%;
+        max-width: 1400px;
+        position: relative;
+        transform: scale(0.95);
+        transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .fullscreen-viewer.active .viewer-container {
+        transform: scale(1);
+    }
+
+    .viewer-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: white;
+        box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Sophisticated close button */
+    .close-button {
+        position: absolute;
+        top: -50px;
+        right: 0;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: rgba(255, 255, 255, 0.9);
+        width: 44px;
+        height: 44px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 1.3rem;
+        font-weight: 300;
+        transition: all 0.3s ease;
+        font-family: 'Work Sans', sans-serif;
+        z-index: 10000;
+    }
+
+    .close-button:hover {
+        background: white;
+        color: var(--slate);
+        border-color: white;
+        transform: rotate(90deg);
+    }
+
+    .close-button:active {
+        transform: rotate(90deg) scale(0.95);
+    }
+
+    /* Keyboard hint */
+    .keyboard-hint {
+        position: absolute;
+        bottom: -45px;
+        left: 0;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+
+    /* Responsive design */
+    @media(max-width: 768px) {
+        .main-content { padding: 50px 20px 80px; }
+        header h1 { font-size: 2.5rem; }
+        .resume-grid { grid-template-columns: 1fr; gap: 25px; }
+        .viewer-container { width: 96%; height: 88%; }
+        .close-button { top: -45px; width: 40px; height: 40px; }
+        .keyboard-hint { display: none; }
+        .card-number { font-size: 2.2rem; }
+    }
+
+    @media(max-width: 480px) {
+        header h1 { font-size: 2rem; }
+        .resume-card { padding: 35px 25px; }
+        .card-title { font-size: 1.5rem; }
+    }
+</style>
+</head>
+<body>
+
+<div class="main-content" id="mainContent">
+    <header>
+        <h1>Resume Showcase</h1>
+        <p class="subtitle">Select Specialization</p>
+        <div class="accent-line"></div>
+    </header>
+
+    <div class="resume-grid">
+        <div class="resume-card" data-accent="ai" data-file="resume_ai_ml.pdf">
+            <div class="card-header">
+                <span class="card-number">01</span>
+            </div>
+            <h2 class="card-title">Artificial Intelligence & Machine Learning</h2>
+            <p class="card-description">Deep learning architectures, neural networks, and intelligent systems development</p>
+            <div class="card-meta">
+                <span class="view-label">View Resume →</span>
+            </div>
+        </div>
+
+        <div class="resume-card" data-accent="analytics" data-file="resume_dataanalytics.pdf">
+            <div class="card-header">
+                <span class="card-number">02</span>
+            </div>
+            <h2 class="card-title">Data Analytics</h2>
+            <p class="card-description">Business intelligence, statistical analysis, and data-driven decision making</p>
+            <div class="card-meta">
+                <span class="view-label">View Resume →</span>
+            </div>
+        </div>
+
+        <div class="resume-card" data-accent="science" data-file="resume_datascience.pdf">
+            <div class="card-header">
+                <span class="card-number">03</span>
+            </div>
+            <h2 class="card-title">Data Science</h2>
+            <p class="card-description">Predictive modeling, algorithm design, and advanced statistical research</p>
+            <div class="card-meta">
+                <span class="view-label">View Resume →</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Premium fullscreen viewer -->
+<div class="fullscreen-viewer" id="fullscreenViewer">
+    <div class="viewer-container">
+        <button class="close-button" id="closeButton" aria-label="Close resume viewer">×</button>
+        <span class="keyboard-hint">Press ESC to close</span>
+        <iframe id="resumeFrame" title="Resume Viewer"></iframe>
+    </div>
+</div>
+
+<script>
+// Get all resume cards
+const resumeCards = document.querySelectorAll('.resume-card');
+const fullscreenViewer = document.getElementById('fullscreenViewer');
+const resumeFrame = document.getElementById('resumeFrame');
+const closeButton = document.getElementById('closeButton');
+const mainContent = document.getElementById('mainContent');
+
+// Open resume function
+function openResume(filePath) {
+    resumeFrame.src = filePath;
+    fullscreenViewer.classList.add('active');
+    mainContent.classList.add('blurred');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close resume function
+function closeResume() {
+    fullscreenViewer.classList.remove('active');
+    mainContent.classList.remove('blurred');
+    document.body.style.overflow = 'auto';
+    // Clear iframe after animation
+    setTimeout(() => {
+        resumeFrame.src = '';
+    }, 400);
+}
+
+// Add click event to all resume cards
+resumeCards.forEach(card => {
+    card.addEventListener('click', function() {
+        const filePath = this.getAttribute('data-file');
+        openResume(filePath);
+    });
+});
+
+// Close button click event
+closeButton.addEventListener('click', function(e) {
+    e.stopPropagation();
+    closeResume();
+});
+
+// Close on overlay click (outside iframe)
+fullscreenViewer.addEventListener('click', function(e) {
+    if (e.target === fullscreenViewer) {
+        closeResume();
+    }
+});
+
+// Close on ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && fullscreenViewer.classList.contains('active')) {
+        closeResume();
+    }
+});
+
+// Prevent iframe clicks from closing
+resumeFrame.addEventListener('click', function(e) {
+    e.stopPropagation();
+});
+</script>
+
+</body>
+</html>

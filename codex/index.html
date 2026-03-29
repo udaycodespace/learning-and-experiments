@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CODEX LABS — Learn. Build. Ship.</title>
+  <meta name="description" content="Neo-brutalist code education platform with radical design philosophy">
+  
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<!-- Grain overlay -->
+<div class="grain-overlay"></div>
+
+<!-- Floating shapes -->
+<div class="shape shape-1"></div>
+<div class="shape shape-2"></div>
+<div class="shape shape-3"></div>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand" href="index.html">
+      <span class="brand-bracket">[</span>
+      <span class="brand-text">CODEX</span>
+      <span class="brand-bracket">]</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="index.html">HOME</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">ABOUT</a></li>
+        <li class="nav-item"><a class="nav-link" href="courses.html">COURSES</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">BLOG</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+      </ul>
+      <a href="contact.html" class="btn btn-cta ms-3">START NOW</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="hero-badge">AVAILABLE NOW</div>
+        <h1 class="hero-title">
+          <span class="title-line">SELF</span>
+          <span class="title-line">LEARN</span>
+          <span class="title-line">CODE</span>
+        </h1>
+        <p class="hero-subtitle">Brutalist code school for misfits. No buzzwords, no hand-holding — just shipping‑grade skills.</p>
+        <div class="hero-actions">
+          <a href="#courses" class="btn btn-primary">EXPLORE COURSES</a>
+          <a href="about.html" class="btn btn-outline">OUR MANIFESTO</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">STUDENTS</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">COURSES</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">95%</div>
+            <div class="stat-label">HIRED</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-image">
+          <div class="image-frame"></div>
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" alt="Coding workspace" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section id="courses" class="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">// WHAT WE OFFER</span>
+      <h2 class="section-title">BREAK THE MOLD</h2>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card" data-delay="0">
+          <div class="card-number">01</div>
+          <div class="card-icon">
+            <i class="bi bi-code-slash"></i>
+          </div>
+          <h3 class="card-title">FULL-STACK DEV</h3>
+          <p class="card-text">MERN, Next.js, GraphQL. Build production apps from day one.</p>
+          <a href="courses.html" class="card-link">LEARN MORE →</a>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card" data-delay="1">
+          <div class="card-number">02</div>
+          <div class="card-icon">
+            <i class="bi bi-gpu-card"></i>
+          </div>
+          <h3 class="card-title">AI/ML ENGINEERING</h3>
+          <p class="card-text">PyTorch, TensorFlow. Train models, deploy to production.</p>
+          <a href="courses.html" class="card-link">LEARN MORE →</a>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card" data-delay="2">
+          <div class="card-number">03</div>
+          <div class="card-icon">
+            <i class="bi bi-bezier2"></i>
+          </div>
+          <h3 class="card-title">UI/UX DESIGN</h3>
+          <p class="card-text">Figma, Framer. Design systems that actually ship.</p>
+          <a href="courses.html" class="card-link">LEARN MORE →</a>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card" data-delay="3">
+          <div class="card-number">04</div>
+          <div class="card-icon">
+            <i class="bi bi-shield-lock"></i>
+          </div>
+          <h3 class="card-title">CYBERSECURITY</h3>
+          <p class="card-text">Penetration testing. Ethical hacking. Real-world scenarios.</p>
+          <a href="courses.html" class="card-link">LEARN MORE →</a>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card" data-delay="4">
+          <div class="card-number">05</div>
+          <div class="card-icon">
+            <i class="bi bi-cloud-arrow-up"></i>
+          </div>
+          <h3 class="card-title">DEVOPS & CLOUD</h3>
+          <p class="card-text">AWS, Docker, K8s. Automate everything.</p>
+          <a href="courses.html" class="card-link">LEARN MORE →</a>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card" data-delay="5">
+          <div class="card-number">06</div>
+          <div class="card-icon">
+            <i class="bi bi-diagram-3"></i>
+          </div>
+          <h3 class="card-title">BLOCKCHAIN DEV</h3>
+          <p class="card-text">Solidity, Web3. Build decentralized apps.</p>
+          <a href="courses.html" class="card-link">LEARN MORE →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-banner">
+  <div class="container">
+    <div class="cta-content">
+      <h2 class="cta-title">READY TO LEVEL UP?</h2>
+      <p class="cta-text">Join 10,000+ developers building the future.</p>
+      <a href="contact.html" class="btn btn-cta-large">GET STARTED NOW</a>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">// STUDENT STORIES</span>
+      <h2 class="section-title">REAL RESULTS</h2>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">Landed a $120k job at Google. CODEX taught me how to actually think like an engineer.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AK</div>
+            <div>
+              <div class="author-name">ANANYA KUMAR</div>
+              <div class="author-role">Software Engineer @ Google</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">From zero to full-stack in 6 months. Built 3 production apps. Got hired before graduation.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">RS</div>
+            <div>
+              <div class="author-name">RAHUL SHARMA</div>
+              <div class="author-role">Full-Stack Dev @ Startup</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text">No fluff. No theory. Just hands-on projects that matter. Best investment I ever made.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">PM</div>
+            <div>
+              <div class="author-name">PRIYA MEHTA</div>
+              <div class="author-role">ML Engineer @ Microsoft</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-lg-4">
+        <div class="footer-brand">
+          <span class="brand-bracket">[</span>
+          <span class="brand-text">CODEX</span>
+          <span class="brand-bracket">]</span>
+        </div>
+        <p class="footer-tagline">Neo-brutalist code education. Built different.</p>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+          <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="social-link"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      
+      <div class="col-6 col-lg-2">
+        <h3 class="footer-heading">LEARN</h3>
+        <ul class="footer-links">
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="#">Bootcamps</a></li>
+          <li><a href="#">Workshops</a></li>
+          <li><a href="#">Resources</a></li>
+        </ul>
+      </div>
+      
+      <div class="col-6 col-lg-2">
+        <h3 class="footer-heading">COMPANY</h3>
+        <ul class="footer-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="col-lg-4">
+        <h3 class="footer-heading">NEWSLETTER</h3>
+        <p class="footer-text">Weekly insights. No spam. Unsubscribe anytime.</p>
+        <form class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="YOUR EMAIL" required>
+          <button type="submit" class="newsletter-btn">SUBSCRIBE</button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> CODEX LABS. ALL RIGHTS RESERVED.</p>
+      <p>DESIGNED WITH INTENT. BUILT WITH PURPOSE.</p>
+      <p class="disclaimer">* All statistics, testimonials, and company names are fictional and for demonstration purposes only.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/scripts.js"></script>
+</body>
+</html>

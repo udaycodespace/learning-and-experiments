@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telangana Matrimony — ID Card Generator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--m:#8B0000;--md:#5C0000;--ml:#A52A2A;--g:#D4AF37;--gl:#E8C84A;--cr:#FFF8F0;--cd:#F5EDE0;--td:#1A0A00;--tm:#6B4C3B;--w:#ffffff;--err:#C62828;--grn:#2E7D32}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0000;font-family:'Inter',sans-serif;min-height:100vh;color:var(--cr);background-image:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(212,175,55,.018) 40px,rgba(212,175,55,.018) 41px),repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(212,175,55,.018) 40px,rgba(212,175,55,.018) 41px)}
+.app{max-width:960px;margin:0 auto;padding:32px 20px}
+
+/* HEADER */
+.hdr{text-align:center;margin-bottom:40px}
+.hdr-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px}
+.hdr-circle{width:50px;height:50px;background:var(--m);border:2px solid var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;color:var(--g);font-weight:700}
+.hdr-title{font-family:'Playfair Display',serif;font-size:26px;color:var(--cr)}
+.hdr-title span{color:var(--g)}
+.hdr-sub{font-size:11px;color:rgba(212,175,55,.5);letter-spacing:.15em;text-transform:uppercase;margin-top:4px}
+.gold-bar{width:60px;height:2px;background:var(--g);margin:14px auto}
+
+/* SCREENS */
+.screen{display:none}
+.screen.active{display:block}
+
+/* SCREEN 1 — ROLE */
+.role-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--cr);text-align:center;margin-bottom:6px}
+.role-sub{font-size:13px;color:rgba(255,248,240,.5);text-align:center;margin-bottom:28px}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:600px;margin:0 auto}
+.role-card{background:rgba(139,0,0,.12);border:1px solid rgba(212,175,55,.2);border-radius:12px;padding:28px 20px;cursor:pointer;transition:all .25s;text-align:center}
+.role-card:hover{border-color:var(--g);background:rgba(139,0,0,.25);transform:translateY(-3px)}
+.role-card.selected{border-color:var(--g);background:rgba(139,0,0,.35);box-shadow:0 0 0 2px rgba(212,175,55,.3)}
+.role-icon{font-size:32px;margin-bottom:12px}
+.role-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--cr);font-weight:600;margin-bottom:4px}
+.role-desc{font-size:11px;color:rgba(255,248,240,.45);line-height:1.5}
+.role-badge{display:inline-block;margin-top:8px;padding:3px 10px;border-radius:99px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.3);color:var(--g)}
+.btn-continue{display:block;width:100%;max-width:300px;margin:28px auto 0;padding:14px;background:var(--m);border:1px solid var(--g);border-radius:8px;color:var(--g);font-family:'Playfair Display',serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+.btn-continue:hover{background:var(--g);color:var(--md)}
+
+/* SCREEN 2 — FORM */
+.form-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:gap 12px}
+.form-role-badge{display:flex;align-items:center;gap:10px}
+.form-role-icon{font-size:24px}
+.form-role-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--cr)}
+.form-role-sub{font-size:11px;color:rgba(212,175,55,.5);letter-spacing:.1em;text-transform:uppercase}
+.btn-dummy{padding:10px 18px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.4);border-radius:8px;color:var(--g);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.btn-dummy:hover{background:rgba(212,175,55,.2)}
+.form-section-title{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,175,55,.6);margin:20px 0 12px;padding-bottom:8px;border-bottom:1px solid rgba(212,175,55,.1)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field-full{grid-column:1/-1}
+.field-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(212,175,55,.65);margin-bottom:5px;display:block}
+.field-input{width:100%;padding:11px 14px;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.2);border-radius:6px;color:var(--cr);font-family:'Inter',sans-serif;font-size:14px;transition:all .2s;outline:none}
+.field-input:focus{border-color:var(--g);background:rgba(212,175,55,.04)}
+.field-input.err{border-color:var(--err);background:rgba(198,40,40,.07)}
+.field-input option{background:#2A0000;color:var(--cr)}
+.field-err{font-size:11px;color:#EF9A9A;margin-top:4px;display:none}
+.field-err.show{display:block}
+.btn-row{display:flex;gap:10px;margin-top:24px}
+.btn-back{padding:13px 20px;background:transparent;border:1px solid rgba(212,175,55,.25);border-radius:8px;color:rgba(212,175,55,.55);font-size:13px;cursor:pointer;transition:all .2s}
+.btn-back:hover{border-color:var(--g);color:var(--g)}
+.btn-submit{flex:1;padding:13px;background:var(--g);border:none;border-radius:8px;color:var(--md);font-family:'Playfair Display',serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-submit:hover{background:var(--gl);transform:translateY(-1px)}
+
+/* SCREEN 3 — SUCCESS */
+.success-wrap{text-align:center;padding:40px 20px}
+.success-icon{font-size:56px;margin-bottom:16px}
+.success-title{font-family:'Playfair Display',serif;font-size:28px;color:var(--cr);margin-bottom:8px}
+.success-title span{color:var(--g)}
+.success-sub{font-size:14px;color:rgba(255,248,240,.5);margin-bottom:32px;line-height:1.6}
+.success-id-badge{display:inline-block;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.4);border-radius:8px;padding:12px 24px;margin-bottom:32px}
+.success-id-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,175,55,.5);margin-bottom:4px}
+.success-id-val{font-family:'Playfair Display',serif;font-size:24px;color:var(--g);font-weight:700}
+.btn-generate{display:inline-block;padding:16px 48px;background:var(--m);border:2px solid var(--g);border-radius:10px;color:var(--g);font-family:'Playfair Display',serif;font-size:17px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.03em}
+.btn-generate:hover{background:var(--g);color:var(--md);transform:translateY(-2px)}
+.btn-another{display:block;margin:16px auto 0;padding:10px 24px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:rgba(255,255,255,.3);font-size:12px;cursor:pointer;transition:all .2s;width:fit-content}
+.btn-another:hover{color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2)}
+
+/* SCREEN 4 — ID CARD */
+.card-screen{display:flex;flex-direction:column;align-items:center;gap:20px}
+.id-card{width:340px;border-radius:14px;overflow:hidden;font-family:'Inter',sans-serif;box-shadow:0 16px 56px rgba(0,0,0,.6),0 0 0 1px rgba(212,175,55,.45)}
+.card-top-stripe{height:3px;background:linear-gradient(90deg,var(--md),var(--g),var(--md))}
+.card-hdr{padding:14px 18px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,175,55,.15);background:rgba(0,0,0,.25)}
+.card-hdr-left{display:flex;align-items:center;gap:10px}
+.card-logo{width:38px;height:38px;background:rgba(212,175,55,.12);border:1.5px solid var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;color:var(--g);font-weight:700}
+.card-platform{font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:#fff;line-height:1.2}
+.card-platform span{opacity:.65}
+.card-role-pill{display:inline-block;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);border-radius:99px;padding:2px 8px;font-size:9px;letter-spacing:.1em;color:var(--g);text-transform:uppercase;margin-top:3px}
+.card-id-box{text-align:right}
+.card-id-lbl{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,175,55,.4)}
+.card-id-val{font-family:'Playfair Display',serif;font-size:16px;color:var(--g);font-weight:700}
+.card-body{padding:16px 18px 12px}
+.card-name-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.card-member-lbl{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px}
+.card-name{font-family:'Playfair Display',serif;font-size:20px;color:#fff;font-weight:700;line-height:1.2;max-width:190px}
+.card-photo{width:54px;height:66px;background:rgba(212,175,55,.08);border:1.5px solid rgba(212,175,55,.25);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.card-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.cf-label{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:2px}
+.cf-val{font-size:12px;color:rgba(255,255,255,.85);font-weight:500}
+.cf-val.gold{color:var(--g);font-weight:600}
+.card-divider{height:1px;background:rgba(212,175,55,.12);margin:4px 0 12px}
+.card-ftr{padding:12px 18px 16px;display:flex;align-items:flex-end;justify-content:space-between;background:rgba(0,0,0,.2);border-top:1px solid rgba(212,175,55,.1)}
+.card-valid-lbl{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:2px}
+.card-valid-val{font-size:11px;color:rgba(255,255,255,.75);font-weight:500}
+.card-status{display:flex;align-items:center;gap:5px;margin-top:6px}
+.sdot{width:5px;height:5px;border-radius:50%;background:#4CAF50;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.stxt{font-size:9px;color:#81C784;letter-spacing:.1em;text-transform:uppercase}
+.card-qr-area{text-align:center}
+.card-qr-box{width:60px;height:60px;background:#fff;padding:4px;border-radius:4px;margin:0 auto 4px}
+.card-qr-box canvas,.card-qr-box img{width:52px!important;height:52px!important}
+.card-qr-lbl{font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.card-bottom-strip{height:5px;background:linear-gradient(90deg,var(--md),var(--g),var(--md))}
+
+/* CARD BACKGROUND VARIANTS */
+.bg-usr{background:linear-gradient(145deg,#4A0000 0%,#6B0000 40%,#8B0000 100%)}
+.bg-mdrp{background:linear-gradient(145deg,#5C0000 0%,#7A0000 40%,#8B0000 100%)}
+.bg-dc{background:linear-gradient(145deg,#3A0A20 0%,#5A1030 40%,#7A1040 100%)}
+.bg-fr{background:linear-gradient(145deg,#0A2000 0%,#1A3A0A 40%,#2A4A10 100%)}
+
+/* ACTION BUTTONS */
+.card-actions{display:flex;flex-direction:column;gap:10px;width:340px}
+.btn-download{padding:13px;background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.4);border-radius:8px;color:var(--g);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+.btn-download:hover{background:rgba(212,175,55,.2)}
+.btn-newcard{padding:11px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:8px;color:rgba(255,255,255,.3);font-size:12px;cursor:pointer;transition:all .2s;text-align:center}
+.btn-newcard:hover{color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2)}
+
+/* QR INFO BOX */
+.qr-info{width:340px;background:rgba(0,0,0,.4);border:1px solid rgba(212,175,55,.15);border-radius:10px;padding:16px}
+.qr-info-title{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,175,55,.5);margin-bottom:10px;text-align:center}
+.qr-encoded{font-size:10px;font-family:monospace;color:rgba(255,248,240,.45);word-break:break-all;line-height:1.6;margin-bottom:10px}
+.qr-encoded span{color:var(--g)}
+.qr-note{font-size:10px;color:rgba(255,248,240,.3);line-height:1.6;text-align:center;font-style:italic}
+
+/* WATERMARK */
+.wm{text-align:center;margin-top:40px;font-size:11px;color:rgba(212,175,55,.18);letter-spacing:.08em}
+
+/* PROGRESS DOTS */
+.progress{display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:32px}
+.pdot{width:8px;height:8px;border-radius:50%;background:rgba(212,175,55,.2);transition:all .3s}
+.pdot.done{background:var(--g)}
+.pdot.active{background:var(--g);box-shadow:0 0 0 3px rgba(212,175,55,.25)}
+.pline{width:32px;height:1px;background:rgba(212,175,55,.15);transition:all .3s}
+.pline.done{background:var(--g)}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-logo">
+      <div class="hdr-circle">TM</div>
+      <div>
+        <div class="hdr-title">Telangana <span>Matrimony</span></div>
+      </div>
+    </div>
+    <div class="hdr-sub">✦ Official ID Card Generator — Demo ✦</div>
+    <div class="gold-bar"></div>
+  </div>
+
+  <!-- SCREEN 1: ROLE SELECTION -->
+  <div class="screen active" id="s1">
+    <div class="progress">
+      <div class="pdot active" id="pd1"></div>
+      <div class="pline" id="pl1"></div>
+      <div class="pdot" id="pd2"></div>
+      <div class="pline" id="pl2"></div>
+      <div class="pdot" id="pd3"></div>
+      <div class="pline" id="pl3"></div>
+      <div class="pdot" id="pd4"></div>
+    </div>
+    <div class="role-title">Who Are You?</div>
+    <div class="role-sub">Select your role to generate your official Telangana Matrimony ID card</div>
+    <div class="role-grid">
+      <div class="role-card" onclick="selectRole('USR',this)">
+        <div class="role-icon">[M]</div>
+        <div class="role-name">Regular Member</div>
+        <div class="role-desc">Bride or Groom seeker searching for the perfect alliance</div>
+        <div class="role-badge">#USR</div>
+      </div>
+      <div class="role-card" onclick="selectRole('MDRP',this)">
+        <div class="role-icon">[P]</div>
+        <div class="role-name">MDRP</div>
+        <div class="role-desc">Matrimony Digital Relationship Partner — refer and earn</div>
+        <div class="role-badge">#MDRP</div>
+      </div>
+      <div class="role-card" onclick="selectRole('DC',this)">
+        <div class="role-icon">[C]</div>
+        <div class="role-name">District Coordinator</div>
+        <div class="role-desc">Manage matrimony operations for your entire district</div>
+        <div class="role-badge">#DC</div>
+      </div>
+      <div class="role-card" onclick="selectRole('FR',this)">
+        <div class="role-icon">[F]</div>
+        <div class="role-name">Franchise Partner</div>
+        <div class="role-desc">Own your matrimony business in your territory</div>
+        <div class="role-badge">#FR</div>
+      </div>
+    </div>
+    <button class="btn-continue" onclick="goToForm()">Continue → Fill Details</button>
+  </div>
+
+  <!-- SCREEN 2: FORM -->
+  <div class="screen" id="s2">
+    <div class="progress">
+      <div class="pdot done"></div>
+      <div class="pline done"></div>
+      <div class="pdot active"></div>
+      <div class="pline" id="pl2b"></div>
+      <div class="pdot" id="pd3b"></div>
+      <div class="pline"></div>
+      <div class="pdot"></div>
+    </div>
+    <div class="form-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+      <div class="form-role-badge">
+        <div class="form-role-icon" id="f_icon">👤</div>
+        <div>
+          <div class="form-role-title" id="f_role_title">Regular Member</div>
+          <div class="form-role-sub" id="f_role_sub">Fill your details below</div>
+        </div>
+      </div>
+      <button class="btn-dummy" onclick="loadDummy()">⚡ Load Demo Data</button>
+    </div>
+
+    <!-- PERSONAL DETAILS -->
+    <div class="form-section-title">Personal Information</div>
+    <div class="form-grid">
+      <div>
+        <label class="field-label">Full Name *</label>
+        <input class="field-input" id="f_name" type="text" placeholder="Your full name">
+        <div class="field-err" id="e_name">Please enter your full name</div>
+      </div>
+      <div>
+        <label class="field-label">Phone Number *</label>
+        <input class="field-input" id="f_phone" type="tel" placeholder="10-digit number" maxlength="10">
+        <div class="field-err" id="e_phone">Enter valid 10-digit number</div>
+      </div>
+      <div>
+        <label class="field-label">Date of Birth *</label>
+        <input class="field-input" id="f_dob" type="date">
+        <div class="field-err" id="e_dob">Age must be between 18–80</div>
+      </div>
+      <div>
+        <label class="field-label">Blood Group *</label>
+        <select class="field-input" id="f_blood">
+          <option value="">Select</option>
+          <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+          <option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
+        </select>
+        <div class="field-err" id="e_blood">Please select blood group</div>
+      </div>
+      <div>
+        <label class="field-label">Gender *</label>
+        <select class="field-input" id="f_gender">
+          <option value="">Select</option>
+          <option>Male</option><option>Female</option>
+        </select>
+        <div class="field-err" id="e_gender">Please select gender</div>
+      </div>
+      <div>
+        <label class="field-label">District *</label>
+        <select class="field-input" id="f_district">
+          <option value="">Select District</option>
+          <option>Hyderabad</option><option>Warangal Urban</option><option>Karimnagar</option>
+          <option>Nizamabad</option><option>Khammam</option><option>Nalgonda</option>
+          <option>Medak</option><option>Rangareddy</option><option>Adilabad</option>
+          <option>Mahabubnagar</option><option>Medchal-Malkajgiri</option><option>Suryapet</option>
+        </select>
+        <div class="field-err" id="e_district">Please select your district</div>
+      </div>
+    </div>
+
+    <!-- ROLE-SPECIFIC FIELDS -->
+    <div id="rf_USR" class="role-fields" style="display:none">
+      <div class="form-section-title">Membership Details</div>
+      <div class="form-grid">
+        <div>
+          <label class="field-label">Subscription Plan *</label>
+          <select class="field-input" id="f_plan">
+            <option value="">Select Plan</option>
+            <option value="Match Entry Pass">Match Entry Pass — Rs. 999</option>
+            <option value="Premium Match Access">Premium Match Access — Rs. 9,999</option>
+          </select>
+          <div class="field-err" id="e_plan">Please select a plan</div>
+        </div>
+        <div>
+          <label class="field-label">Religion</label>
+          <select class="field-input" id="f_religion">
+            <option value="">Select</option>
+            <option>Hindu</option><option>Muslim</option><option>Christian</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label">Education</label>
+          <input class="field-input" id="f_edu" type="text" placeholder="e.g. B.Tech">
+        </div>
+        <div>
+          <label class="field-label">Occupation</label>
+          <input class="field-input" id="f_occ" type="text" placeholder="e.g. Software Engineer">
+        </div>
+      </div>
+    </div>
+
+    <div id="rf_MDRP" class="role-fields" style="display:none">
+      <div class="form-section-title">MDRP Details</div>
+      <div class="form-grid">
+        <div>
+          <label class="field-label">Bank Account</label>
+          <input class="field-input" id="f_bank" type="text" placeholder="Account number">
+        </div>
+        <div>
+          <label class="field-label">IFSC Code</label>
+          <input class="field-input" id="f_ifsc" type="text" placeholder="IFSC code">
+        </div>
+        <div class="field-full">
+          <label class="field-label">Referral Code (Auto-Generated)</label>
+          <input class="field-input" id="f_ref" type="text" readonly style="opacity:.55;cursor:not-allowed">
+        </div>
+      </div>
+    </div>
+
+    <div id="rf_DC" class="role-fields" style="display:none">
+      <div class="form-section-title">Coordinator Details</div>
+      <div class="form-grid">
+        <div>
+          <label class="field-label">Assigned District *</label>
+          <select class="field-input" id="f_dc_district">
+            <option value="">Select Assigned District</option>
+            <option>Hyderabad</option><option>Warangal Urban</option><option>Karimnagar</option>
+            <option>Nizamabad</option><option>Khammam</option><option>Nalgonda</option>
+            <option>Medak</option><option>Rangareddy</option>
+          </select>
+          <div class="field-err" id="e_dc_district">Please select assigned district</div>
+        </div>
+        <div>
+          <label class="field-label">Experience (Years)</label>
+          <input class="field-input" id="f_exp" type="number" placeholder="e.g. 3" min="0" max="50">
+        </div>
+      </div>
+    </div>
+
+    <div id="rf_FR" class="role-fields" style="display:none">
+      <div class="form-section-title">Franchise Details</div>
+      <div class="form-grid">
+        <div>
+          <label class="field-label">Business Name *</label>
+          <input class="field-input" id="f_biz" type="text" placeholder="Your business name">
+          <div class="field-err" id="e_biz">Please enter business name</div>
+        </div>
+        <div>
+          <label class="field-label">Territory *</label>
+          <select class="field-input" id="f_territory">
+            <option value="">Select Territory</option>
+            <option>Hyderabad</option><option>Warangal</option><option>Karimnagar</option>
+            <option>Nizamabad</option><option>Khammam</option><option>Nalgonda</option>
+          </select>
+          <div class="field-err" id="e_territory">Please select territory</div>
+        </div>
+        <div class="field-full">
+          <label class="field-label">GST Number (Optional)</label>
+          <input class="field-input" id="f_gst" type="text" placeholder="GST number if available">
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(1)">← Back</button>
+      <button class="btn-submit" onclick="submitForm()">Submit Application →</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: SUCCESS -->
+  <div class="screen" id="s3">
+    <div class="progress">
+      <div class="pdot done"></div>
+      <div class="pline done"></div>
+      <div class="pdot done"></div>
+      <div class="pline done"></div>
+      <div class="pdot active"></div>
+      <div class="pline"></div>
+      <div class="pdot"></div>
+    </div>
+    <div class="success-wrap">
+      <div class="success-icon">[✓]</div>
+      <div class="success-title">Application <span>Submitted!</span></div>
+      <div class="success-sub">Your profile has been received.<br>Admin will review and approve within 24 hours.<br>Your official ID has been assigned.</div>
+      <div class="success-id-badge">
+        <div class="success-id-label">Your Telangana Matrimony ID</div>
+        <div class="success-id-val" id="success_id">#MDRP-0001</div>
+      </div>
+      <br>
+      <button class="btn-generate" onclick="goTo(4)">Generate My ID Card</button>
+      <button class="btn-another" onclick="resetAll()">Start Over</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: ID CARD -->
+  <div class="screen" id="s4">
+    <div class="progress">
+      <div class="pdot done"></div>
+      <div class="pline done"></div>
+      <div class="pdot done"></div>
+      <div class="pline done"></div>
+      <div class="pdot done"></div>
+      <div class="pline done"></div>
+      <div class="pdot active"></div>
+    </div>
+    <div class="card-screen">
+
+      <div class="id-card" id="the_card">
+        <div class="card-top-stripe"></div>
+        <div class="card-hdr">
+          <div class="card-hdr-left">
+            <div class="card-logo">TM</div>
+            <div>
+              <div class="card-platform">Telangana <span>Matrimony</span></div>
+              <div class="card-role-pill" id="c_role_pill">Member</div>
+            </div>
+          </div>
+          <div class="card-id-box">
+            <div class="card-id-lbl">ID</div>
+            <div class="card-id-val" id="c_id">#---</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-name-row">
+            <div>
+              <div class="card-member-lbl" id="c_name_lbl">Member Name</div>
+              <div class="card-name" id="c_name">—</div>
+            </div>
+            <div class="card-photo" id="c_photo">👤</div>
+          </div>
+          <div class="card-fields" id="c_fields"></div>
+          <div class="card-divider"></div>
+        </div>
+        <div class="card-ftr">
+          <div>
+            <div class="card-valid-lbl">Valid Until</div>
+            <div class="card-valid-val" id="c_valid">—</div>
+            <div class="card-status">
+              <div class="sdot"></div>
+              <div class="stxt">Active</div>
+            </div>
+          </div>
+          <div class="card-qr-area">
+            <div class="card-qr-box" id="qr_box"></div>
+            <div class="card-qr-lbl">TM Verified QR</div>
+          </div>
+        </div>
+        <div class="card-bottom-strip"></div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn-download" onclick="downloadCard()">Download ID Card</button>
+        <button class="btn-newcard" onclick="resetAll()">Generate Another Card</button>
+      </div>
+
+      <div class="qr-info">
+        <div class="qr-info-title">🔐 QR Security Info</div>
+        <div class="qr-encoded" id="qr_encoded_display">—</div>
+        <div class="qr-note">This QR can only be decoded by the official<br><strong style="color:rgba(212,175,55,.6)">TM Verifier App</strong> — fake cards cannot replicate the checksum</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="wm">Telangana Matrimony · Secure ID Card Generator<br>Built by Somapuram Uday · Sri Vasavi Digital Service</div>
+</div>
+
+<script>
+const SECRET = 'SVDS@TM#2026'
+const ROLES = {
+  USR:{label:'Regular Member',pill:'Member',icon:'👤',nameLbl:'Member Name',bg:'bg-usr',idPfx:'USR',counter:156},
+  MDRP:{label:'MDRP',pill:'MDRP',icon:'🤝',nameLbl:'Member Name',bg:'bg-mdrp',idPfx:'MDRP',counter:42},
+  DC:{label:'District Coordinator',pill:'DC',icon:'📍',nameLbl:'Coordinator Name',bg:'bg-dc',idPfx:'DC',counter:7},
+  FR:{label:'Franchise Partner',pill:'Franchise',icon:'🏢',nameLbl:'Partner Name',bg:'bg-fr',idPfx:'FR',counter:3}
+}
+
+const DUMMY = {
+  USR:{name:'Lakshmi Reddy',phone:'9391736411',dob:'1999-05-14',blood:'AB+',gender:'Female',district:'Nizamabad',plan:'Premium Match Access',religion:'Hindu',edu:'B.Tech',occ:'Software Engineer'},
+  MDRP:{name:'Venkat Rao',phone:'9876543210',dob:'1997-08-22',blood:'B+',gender:'Male',district:'Hyderabad',bank:'9876543210001234',ifsc:'SBIN0001234',ref:''},
+  DC:{name:'Padmavathi Devi',phone:'8765432109',dob:'1990-03-10',blood:'O+',gender:'Female',district:'Warangal Urban',dc_district:'Warangal Urban',exp:'6'},
+  FR:{name:'Ramaiah Goud',phone:'7654321098',dob:'1982-11-05',blood:'A+',gender:'Male',district:'Karimnagar',biz:'SR Matrimony Services',territory:'Karimnagar',gst:'36ABCDE1234F1Z5'}
+}
+
+let role = null, formData = {}
+
+function selectRole(r, el) {
+  role = r
+  document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'))
+  el.classList.add('selected')
+}
+
+function goToForm() {
+  if (!role) { alert('Please select your role first'); return }
+  document.getElementById('f_icon').textContent = ROLES[role].icon
+  document.getElementById('f_role_title').textContent = ROLES[role].label
+  document.getElementById('f_role_sub').textContent = 'Fill your details carefully'
+  document.querySelectorAll('.role-fields').forEach(f => f.style.display = 'none')
+  document.getElementById('rf_' + role).style.display = 'block'
+  if (role === 'MDRP') {
+    document.getElementById('f_ref').value = 'TM-REF-' + Math.random().toString(36).substr(2,6).toUpperCase()
+  }
+  goTo(2)
+}
+
+function loadDummy() {
+  const d = DUMMY[role]
+  if (!d) return
+  setValue('f_name', d.name)
+  setValue('f_phone', d.phone)
+  setValue('f_dob', d.dob)
+  setValue('f_blood', d.blood)
+  setValue('f_gender', d.gender)
+  setValue('f_district', d.district)
+  if (role === 'USR') {
+    setValue('f_plan', d.plan)
+    setValue('f_religion', d.religion)
+    setValue('f_edu', d.edu)
+    setValue('f_occ', d.occ)
+  } else if (role === 'MDRP') {
+    setValue('f_bank', d.bank)
+    setValue('f_ifsc', d.ifsc)
+  } else if (role === 'DC') {
+    setValue('f_dc_district', d.dc_district)
+    setValue('f_exp', d.exp)
+  } else if (role === 'FR') {
+    setValue('f_biz', d.biz)
+    setValue('f_territory', d.territory)
+    setValue('f_gst', d.gst)
+  }
+  clearErrors()
+}
+
+function setValue(id, val) {
+  const el = document.getElementById(id)
+  if (el) el.value = val
+}
+
+function submitForm() {
+  if (!validateForm()) return
+  collectData()
+  const id = '#' + ROLES[role].idPfx + '-' + String(ROLES[role].counter).padStart(4, '0')
+  document.getElementById('success_id').textContent = id
+  goTo(3)
+}
+
+function validateForm() {
+  let ok = true
+  const name = document.getElementById('f_name').value.trim()
+  const phone = document.getElementById('f_phone').value.trim()
+  const dob = document.getElementById('f_dob').value
+  const blood = document.getElementById('f_blood').value
+  const gender = document.getElementById('f_gender').value
+  const district = document.getElementById('f_district').value
+
+  if (name.length < 3) { showErr('e_name','f_name'); ok = false } else hideErr('e_name','f_name')
+  if (!/^\d{10}$/.test(phone)) { showErr('e_phone','f_phone'); ok = false } else hideErr('e_phone','f_phone')
+  if (!dob) { showErr('e_dob','f_dob'); ok = false }
+  else { const age = calcAge(dob); if (age < 18 || age > 80) { showErr('e_dob','f_dob'); ok = false } else hideErr('e_dob','f_dob') }
+  if (!blood) { showErr('e_blood','f_blood'); ok = false } else hideErr('e_blood','f_blood')
+  if (!gender) { showErr('e_gender','f_gender'); ok = false } else hideErr('e_gender','f_gender')
+  if (!district) { showErr('e_district','f_district'); ok = false } else hideErr('e_district','f_district')
+
+  if (role === 'USR') {
+    if (!document.getElementById('f_plan').value) { showErr('e_plan','f_plan'); ok = false } else hideErr('e_plan','f_plan')
+  } else if (role === 'DC') {
+    if (!document.getElementById('f_dc_district').value) { showErr('e_dc_district','f_dc_district'); ok = false } else hideErr('e_dc_district','f_dc_district')
+  } else if (role === 'FR') {
+    if (!document.getElementById('f_biz').value.trim()) { showErr('e_biz','f_biz'); ok = false } else hideErr('e_biz','f_biz')
+    if (!document.getElementById('f_territory').value) { showErr('e_territory','f_territory'); ok = false } else hideErr('e_territory','f_territory')
+  }
+  return ok
+}
+
+function collectData() {
+  formData = {
+    role, name: document.getElementById('f_name').value.trim(),
+    phone: document.getElementById('f_phone').value.trim(),
+    dob: document.getElementById('f_dob').value,
+    blood: document.getElementById('f_blood').value,
+    gender: document.getElementById('f_gender').value,
+    district: document.getElementById('f_district').value,
+    id: ROLES[role].idPfx + '-' + String(ROLES[role].counter).padStart(4,'0')
+  }
+  if (role === 'USR') { formData.plan = document.getElementById('f_plan').value; formData.religion = document.getElementById('f_religion').value; formData.edu = document.getElementById('f_edu').value; formData.occ = document.getElementById('f_occ').value }
+  if (role === 'MDRP') { formData.ref = document.getElementById('f_ref').value }
+  if (role === 'DC') { formData.dc_district = document.getElementById('f_dc_district').value; formData.exp = document.getElementById('f_exp').value }
+  if (role === 'FR') { formData.biz = document.getElementById('f_biz').value; formData.territory = document.getElementById('f_territory').value }
+}
+
+function goTo(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'))
+  document.getElementById('s' + n).classList.add('active')
+  if (n === 4) buildCard()
+  window.scrollTo(0,0)
+}
+
+function buildCard() {
+  const d = formData, R = ROLES[role]
+  const today = new Date()
+  const validUntil = new Date(today); validUntil.setFullYear(validUntil.getFullYear() + 1)
+  const fmtDate = dt => new Date(dt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})
+  const age = calcAge(d.dob)
+  const id = '#' + d.id
+  const maskedPhone = '+91 ' + d.phone.substr(0,5) + 'XXXXX'
+
+  // Set card background
+  const card = document.getElementById('the_card')
+  card.className = 'id-card ' + R.bg
+  document.getElementById('c_role_pill').textContent = R.pill
+  document.getElementById('c_id').textContent = id
+  document.getElementById('c_name_lbl').textContent = R.nameLbl
+  document.getElementById('c_name').textContent = d.name
+  document.getElementById('c_photo').textContent = d.gender === 'Female' ? '👩' : '👨'
+  document.getElementById('c_valid').textContent = fmtDate(validUntil)
+
+  // Build fields
+  let fields = [
+    {lbl:'Age', val: age + ' yrs', gold: false},
+    {lbl:'Blood Group', val: d.blood, gold: true},
+    {lbl:'Phone', val: maskedPhone, gold: false},
+    {lbl:'District', val: d.district, gold: false},
+  ]
+  if (role === 'USR') {
+    fields.push({lbl:'Plan', val: d.plan?.split(' ').slice(0,2).join(' ') || '—', gold: true})
+    fields.push({lbl:'Joined', val: today.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}), gold: false})
+  } else if (role === 'MDRP') {
+    fields.push({lbl:'Ref Code', val: d.ref || '—', gold: true})
+    fields.push({lbl:'Joined', val: today.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}), gold: false})
+  } else if (role === 'DC') {
+    fields.push({lbl:'Area', val: d.dc_district || '—', gold: true})
+    fields.push({lbl:'Joined', val: today.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}), gold: false})
+  } else if (role === 'FR') {
+    fields.push({lbl:'Business', val: d.biz || '—', gold: true})
+    fields.push({lbl:'Territory', val: d.territory || '—', gold: false})
+  }
+
+  document.getElementById('c_fields').innerHTML = fields.map(f =>
+    `<div><div class="cf-label">${f.lbl}</div><div class="cf-val${f.gold?' gold':''}">${f.val}</div></div>`
+  ).join('')
+
+  // Generate QR
+  const today_str = today.toLocaleDateString('en-IN').replace(/\//g,'')
+  const rawStr = `TM2026|${role}|${d.id}|${d.name.replace(/\s/g,'')}|${d.district}|${d.blood}|${today_str}`
+  const checksum = btoa(d.id + d.name + SECRET).substr(0, 8)
+  const encoded = rawStr + '|' + checksum
+  const verifyUrl = 'TM-VERIFY:' + encoded
+
+  const qrBox = document.getElementById('qr_box')
+  qrBox.innerHTML = ''
+  new QRCode(qrBox, {
+    text: verifyUrl,
+    width: 52, height: 52,
+    colorDark: role === 'DC' ? '#3A1050' : role === 'FR' ? '#1A4010' : '#8B0000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  })
+
+  // Show encoded string
+  const parts = rawStr.split('|')
+  document.getElementById('qr_encoded_display').innerHTML =
+    `<span>Platform:</span> ${parts[0]}<br>` +
+    `<span>Role:</span> ${parts[1]}<br>` +
+    `<span>ID:</span> ${parts[2]}<br>` +
+    `<span>Name:</span> ${parts[3]}<br>` +
+    `<span>District:</span> ${parts[4]}<br>` +
+    `<span>Blood:</span> ${parts[5]}<br>` +
+    `<span>Date:</span> ${parts[6]}<br>` +
+    `<span>Checksum:</span> ${checksum} <span style="color:rgba(76,175,80,.8)">✓ Signed</span>`
+}
+
+function showErr(errId, fieldId) {
+  document.getElementById(errId).classList.add('show')
+  document.getElementById(fieldId).classList.add('err')
+}
+function hideErr(errId, fieldId) {
+  document.getElementById(errId).classList.remove('show')
+  document.getElementById(fieldId).classList.remove('err')
+}
+function clearErrors() {
+  document.querySelectorAll('.field-err').forEach(e => e.classList.remove('show'))
+  document.querySelectorAll('.field-input').forEach(f => f.classList.remove('err'))
+}
+function calcAge(dob) {
+  const b = new Date(dob), t = new Date()
+  let age = t.getFullYear() - b.getFullYear()
+  const m = t.getMonth() - b.getMonth()
+  if (m < 0 || (m === 0 && t.getDate() < b.getDate())) age--
+  return age
+}
+function resetAll() {
+  role = null; formData = {}
+  document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'))
+  document.querySelectorAll('.field-input').forEach(f => { f.value = ''; f.classList.remove('err') })
+  clearErrors()
+  document.getElementById('qr_box').innerHTML = ''
+  goTo(1)
+}
+
+async function downloadCard() {
+  const card = document.getElementById('the_card')
+  try {
+    const canvas = await html2canvas(card, { backgroundColor: '#FFFFFF', scale: 2 })
+    const link = document.createElement('a')
+    const name = formData.name ? formData.name.replace(/\s+/g, '_') : 'TM-ID-Card'
+    link.href = canvas.toDataURL('image/png')
+    link.download = `${name}_${formData.id}.png`
+    link.click()
+  } catch (e) {
+    alert('Error downloading card. Please try again.')
+    console.error(e)
+  }
+}
+</script>
+</body>
+</html>
